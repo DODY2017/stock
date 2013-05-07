@@ -16,10 +16,10 @@ from nltk.classify import NaiveBayesClassifier
 from nltk.metrics import BigramAssocMeasures
 from nltk.probability import FreqDist, ConditionalFreqDist
 
-consumer_key="qkszpkt1i2x1kY9Ac73w"
-consumer_secret="tTNJAdzmD4tDBCbENM710TWK1UkoczHEnn8hZyO4Lwc"
-access_key = "996319352-9pP5LTKNyrdmLiviq47CmzasffUfZF4t0efd48"
-access_secret = "puJC3Pv9n9QeZltBpMLYWlfD7aRLwcGuU5b29jnWkRk" 
+consumer_key=""
+consumer_secret=""
+access_key = ""
+access_secret = "" 
 POLARITY_DATA_DIR = os.path.join('polarityData', 'rt-polaritydata')
 RT_POLARITY_POS_FILE = os.path.join(POLARITY_DATA_DIR, 'rt-polarity-pos.txt')
 RT_POLARITY_NEG_FILE = os.path.join(POLARITY_DATA_DIR, 'rt-polarity-neg.txt')
