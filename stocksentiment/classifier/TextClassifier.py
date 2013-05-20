@@ -73,7 +73,7 @@ class TweetClassifier(object):
     
 if __name__ == '__main__':
    
-    tweetClassifier = TweetClassifier("C:\\work\\development\\python\\workspace\\stocksentiment\\polarityData\\rt-polaritydata\\rt-polarity-pos.txt", "C:\\work\\development\\python\\workspace\\stocksentiment\\polarityData\\rt-polaritydata\\rt-polarity-neg.txt")
+    tweetClassifier = TweetClassifier("..\\polarityData\\rt-polaritydata\\rt-polarity-pos.txt", "..\\polarityData\\rt-polaritydata\\rt-polarity-neg.txt")
     classifier = tweetClassifier.buildClassifier(tweetClassifier.make_full_dict)
     print classifier.labels()
     
