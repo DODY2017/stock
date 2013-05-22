@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="lib/jquery-1.6.4.js"></script>
+        <script src="lib/jquery.mobile-1.1.0.js"></script>
+        <script src="js/main.js"></script>
+        <link href="src/css/jquery.mobile.structure-1.1.0.css" rel="stylesheet">
+        <link href="src/css/jquery.mobile.theme-1.1.0.css" rel="stylesheet">
+    </head>
+    
+    <body>
+<div data-role="page" id="stockSentiments" data-title="Stock Sentiments">
+            <div data-role="header">
+                <h1>Stock Sentiments</h1>
+                <a data-role="button" data-rel="back" data-icon="back">Back</a>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-inset="true">
+                    <li>
+                        <a><span class="ui-li-count">Positive</span>GOOG</a>
+                    </li>
+                    <li>
+                        <a><span class="ui-li-count">Nuetral</span>APPL</a>
+                    </li>
+                    <li>
+                        <a><span class="ui-li-count">Negative</span>YHOO</a>
+                    </li>
+                    <li data-role="list-divider"></li>
+                    <li>
+                        <a href="#stock">+</a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Footer</h1>
+                <div data-role="navbar" data-iconpos="notext">
+                    <ul>
+                        <li>
+                            <a data-role="button" class="ui-btn-active" href="#stockSentiments" data-transition="none"
+                            data-mini="true">Stock</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#productSentiments" data-mini="true">Product</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#customSentiments" data-mini="true">Custom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="stock">
+            <div data-role="header" data-position="fixed">
+                <h1>Stock Sentiment</h1>
+                <a data-role="button" data-rel="back" data-icon="back" data-mini="true">Back</a>
+            </div>
+            <div data-role="content">
+                <div data-role="fieldcontain">
+                    <label for="text1">Stock Symbol</label>
+                    <input type="text" id="text1" placeholder="GOOG">
+                </div>
+                <div class="div-widget">
+                    <input type="checkbox" id="checkbox1">
+                    <label for="checkbox1">Stream</label>
+                    <div data-role="fieldcontain" id="slider1">
+                        <label for="slider1-range">Stream Frequency (mins)</label>
+                        <input type="range" id="slider1-range" value="50"
+                        min="5" max="360" step="5" data-highlight="true">
+                    </div>
+                    <a data-role="button" id="button1" href="#Sentiment">Analyze</a>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Footer</h1>
+                <div data-role="navbar" data-iconpos="notext">
+                    <ul>
+                        <li>
+                            <a data-role="button" class="ui-btn-active" href="#stock" data-transition="none"
+                            data-mini="true">Stock</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#product" data-mini="true">Product</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#custom" data-mini="true">Custom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="product">
+            <div data-role="header" data-position="fixed">
+                <h1>Product Sentiment</h1>
+                <a data-role="button" data-rel="back" data-icon="back" data-mini="true">Back</a>
+            </div>
+            <div data-role="content">
+                <div data-role="fieldcontain">
+                    <label for="text2">Product Name</label>
+                    <input type="text" id="text2" placeholder="Adidas Shoes">
+                </div>
+                <div class="div-widget">
+                    <input type="checkbox" id="checkbox2">
+                    <label for="checkbox2">Stream</label>
+                    <div data-role="fieldcontain" id="slider2">
+                        <label for="slider2-range">Stream Frequency (mins)</label>
+                        <input type="range" id="slider2-range" value="50"
+                        min="5" max="360" step="5" data-highlight="true">
+                    </div>
+                    <a data-role="button" href="#Sentiment">Analyze</a>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Footer</h1>
+                <div data-role="navbar" data-iconpos="notext">
+                    <ul>
+                        <li>
+                            <a data-role="button" href="#stock" data-transition="none" data-mini="true">Stock</a>
+                        </li>
+                        <li>
+                            <a data-role="button" class="ui-btn-active" href="#product" data-mini="true">Product</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#custom" data-mini="true">Custom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="custom">
+            <div data-role="header" data-position="fixed">
+                <h1>Custom Sentiment Analysis</h1>
+                <a data-role="button" data-rel="back" data-icon="back"
+                data-mini="true">Back</a>
+            </div>
+            <div data-role="content">
+                <div data-role="fieldcontain">
+                    <label for="text3">Interest</label>
+                    <input type="text" id="text3" placeholder="Colud Computing">
+                </div>
+                <div class="div-widget">
+                    <input type="checkbox" id="checkbox3">
+                    <label for="checkbox3">Stream</label>
+                    <div data-role="fieldcontain" id="slider3">
+                        <label for="slider3-range">Stream Frequency (mins)</label>
+                        <input type="range" id="slider3-range" value="50"
+                        min="5" max="360" step="5" data-highlight="true">
+                    </div>
+                    <a data-role="button" href="#Sentiment">Analyze</a>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Footer</h1>
+                <div data-role="navbar" data-iconpos="notext">
+                    <ul>
+                        <li>
+                            <a data-role="button" href="#stock" data-transition="none" data-mini="true">Stock</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#product" data-mini="true">Product</a>
+                        </li>
+                        <li>
+                            <a data-role="button" class="ui-btn-active" href="#custom" data-mini="true">Custom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="dialog" id="Sentiment" data-title="Sentiment Data Saved">
+            <div data-role="header">
+                <h1>Sentiment Analysis</h1>
+            </div>
+            <div data-role="content">
+                <p>Sentiment data saved.</p>
+            </div>
+        </div>
+        
+        <div data-role="page" id="productSentiments" data-title="Stock Sentiments">
+            <div data-role="header">
+                <h1>Product Sentiments</h1>
+                <a data-role="button" data-rel="back" data-icon="back">Back</a>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-inset="true">
+                    <li>
+                        <a><span class="ui-li-count">Positive</span>iPhone 4</a>
+                    </li>
+                    <li>
+                        <a><span class="ui-li-count">Nuetral</span>Samsung Galaxy S3</a>
+                    </li>
+                    <li>
+                        <a><span class="ui-li-count">Negative</span>YHOO</a>
+                    </li>
+                    <li data-role="list-divider"></li>
+                    <li>
+                        <a href="#product">+</a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Footer</h1>
+                <div data-role="navbar" data-iconpos="notext">
+                    <ul>
+                        <li>
+                            <a data-role="button" href="#stockSentiments" data-transition="none" data-mini="true">Stock</a>
+                        </li>
+                        <li>
+                            <a data-role="button" class="ui-btn-active" href="#productSentiments" data-mini="true">Product</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#customSentiments" data-mini="true">Custom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div data-role="page" id="customSentiments" data-title="Stock Sentiments">
+            <div data-role="header">
+                <h1>Custom Sentiments</h1>
+                <a data-role="button" data-rel="back" data-icon="back">Back</a>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-inset="true">
+                    <li>
+                        <a><span class="ui-li-count">Positive</span>Cloud Computing</a>
+                    </li>
+                    <li>
+                        <a><span class="ui-li-count">Nuetral</span>Natural Language Processing</a>
+                    </li>
+                    <li>
+                        <a><span class="ui-li-count">Negative</span>Mobile App Development</a>
+                    </li>
+                    <li data-role="list-divider"></li>
+                    <li>
+                        <a href="#custom">+</a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h1>Footer</h1>
+                <div data-role="navbar" data-iconpos="notext">
+                    <ul>
+                        <li>
+                            <a data-role="button" href="#stockSentiments" data-transition="none" data-mini="true">Stock</a>
+                        </li>
+                        <li>
+                            <a data-role="button" href="#productSentiments" data-mini="true">Product</a>
+                        </li>
+                        <li>
+                            <a data-role="button" class="ui-btn-active" href="#customSentiments" data-mini="true">Custom</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
