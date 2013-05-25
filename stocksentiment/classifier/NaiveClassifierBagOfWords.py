@@ -94,7 +94,7 @@ class NaiveClassifierBagOfWords:
         print 'Classifier Testing in progress....'
         positiveTweets = [] 
         negativeTweets = []
-        with open(r'..\polarityData\TweetCorpus\\testdata.manual.2009.06.14.csv', 'rb') as f:
+        with open(r'..\polarityData\TweetCorpus\testdata.manual.2009.06.14.csv', 'rb') as f:
             print "File Name:", f.name , "Files Open Status:", not f.closed
             reader = csv.reader(f)
             for row in reader:
