@@ -20,6 +20,11 @@ class TweetInfo(ndb.Model):
     userName = ndb.StringProperty()
     text = ndb.StringProperty()
     
+class StockSymbol(ndb.Model):
+    symbol = ndb.StringProperty()
+    companyName = ndb.StringProperty()
+    exchange = ndb.StringProperty()
+    
 if __name__ == '__main__':
     l = SentimentInfo()
     test = SentimentInfo(ticker='APPL', time=datetime.datetime.now(), posCount=10, negCount=2, neutralCount=50)
