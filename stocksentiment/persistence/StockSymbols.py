@@ -5,10 +5,13 @@ Created on May 25, 2013
 '''
 import csv
 from persistence.structure import StockSymbol
+import os
 
 class StockSymbols:
     def store(self):
-        with open(r'polarityData\stock_symbols\CompanylistNASDAQ.csv', 'rb') as f:
+        STOCK_DIR = os.path.join('polarityData', 'stock_symbols')
+        NASDAQ_FILE = os.path.join(STOCK_DIR, 'CompanylistNASDAQ.csv')
+        with open(NASDAQ_FILE, 'rb') as f:
             reader = csv.reader(f)
             for row in reader:
                 symbol = row[0]
@@ -20,7 +23,8 @@ class StockSymbols:
             query = StockSymbol.query(StockSymbol.exchange == 'NASDAQ')
             print 'NASDAQ Symbols Count:', query.count()
         
-        with open(r'polarityData\stock_symbols\CompanylistAMEX.csv', 'rb') as f:
+        AMEX_FILE = os.path.join(STOCK_DIR, 'CompanylistAMEX.csv')
+        with open(AMEX_FILE, 'rb') as f:
             reader = csv.reader(f)
             for row in reader:
                 symbol = row[0]
@@ -32,7 +36,8 @@ class StockSymbols:
             query = StockSymbol.query(StockSymbol.exchange == 'AMEX')
             print 'AMEX Symbols Count:', query.count()
         
-        with open(r'polarityData\stock_symbols\CompanylistNYSE.csv', 'rb') as f:
+        NYSE_FILE = os.path.join(STOCK_DIR, 'CompanylistNYSE.csv')
+        with open(NYSE_FILE, 'rb') as f:
             reader = csv.reader(f)
             for row in reader:
                 symbol = row[0]
