@@ -8,6 +8,7 @@ from protorpc import messages
 from protorpc import remote
 from persistence.structure import StockSymbol
 from persistence.StockSymbols import StockSymbols
+from google.appengine.ext import ndb
 
 class Sentiment(messages.Message):
     category = messages.StringField(1)
@@ -21,6 +22,9 @@ class StockSymbolMessage(messages.Message):
 class StockSymbolList(messages.Message):
     items = messages.MessageField(StockSymbolMessage, 1, repeated=True)
     
+class StockSymbolCountMessage(messages.Message):
+    message = messages.StringField(1)
+        
 @endpoints.api(name='sentiment', version='v1', description='Sentiment API')
 class SentimentAPI(remote.Service):
     @endpoints.method(request_message=Sentiment,response_message=Sentiment, name='insert', path='add', http_method='POST')
@@ -29,7 +33,7 @@ class SentimentAPI(remote.Service):
 
 @endpoints.api(name='symbols', version='v1', description='Stock Symbols API')
 class GetSymbolsAPI(remote.Service):
-    @endpoints.method(response_message=StockSymbolList, name='get', path='symbols', http_method='GET')
+    @endpoints.method(response_message=StockSymbolList, name='getsymbols', path='get', http_method='GET')
     def getSymbols(self, request):
         symbols = []
         for sym in StockSymbol.query():
@@ -37,12 +41,27 @@ class GetSymbolsAPI(remote.Service):
         
         return StockSymbolList(items=symbols)
     
-    @endpoints.method(name='add', path='symbols', http_method='POST')
+    @endpoints.method(name='addsymbols', path='add', http_method='POST')
     def addSymbols(self, request):
         stock = StockSymbols()
         stock.store()
         
         return request
+    
+    @endpoints.method(response_message=StockSymbolCountMessage, name='countsymbols', path='count', http_method='GET')
+    def getSymbolCount(self, request):
+        query = StockSymbol.query()
+        return StockSymbolCountMessage(message=str(query.count()))
+    
+    @endpoints.method(response_message=StockSymbolCountMessage, name='deletesymbols', path='delete', http_method='GET')
+    def deleteSymbols(self, request):
+        symbolkeys = []
+        for sym in StockSymbol.query():
+            symbolkeys.append(sym.key)
+        
+        ndb.delete_multi(symbolkeys)
+        message = 'All Symbols Deleted'      
+        return StockSymbolCountMessage(message=message)
 
     
 application = endpoints.api_server([GetSymbolsAPI])
