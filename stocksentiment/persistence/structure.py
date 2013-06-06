@@ -12,6 +12,8 @@ class SentimentInfo(ndb.Model):
     posCount = ndb.IntegerProperty()
     negCount = ndb.IntegerProperty()
     neutralCount = ndb.IntegerProperty()
+    sinceId = ndb.IntegerProperty()
+    watchCount = ndb.IntegerProperty()
 
 class TweetInfo(ndb.Model):
     ticker = ndb.StringProperty()
@@ -24,7 +26,7 @@ class StockSymbol(ndb.Model):
     symbol = ndb.StringProperty()
     companyName = ndb.StringProperty()
     exchange = ndb.StringProperty()
-    
+
 if __name__ == '__main__':
     l = SentimentInfo()
     test = SentimentInfo(ticker='APPL', time=datetime.datetime.now(), posCount=10, negCount=2, neutralCount=50)
