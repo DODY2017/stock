@@ -9,6 +9,8 @@ from protorpc import remote
 from persistence.structure import StockSymbol
 from persistence.StockSymbols import StockSymbols
 from google.appengine.ext import ndb
+from classifier.NaiveClassifierBagOfWords import NaiveClassifierBagOfWords
+from tweet.aggregator import Aggregator
 
 class Sentiment(messages.Message):
     category = messages.StringField(1)
@@ -29,6 +31,15 @@ class StockSymbolCountMessage(messages.Message):
 class SentimentAPI(remote.Service):
     @endpoints.method(request_message=Sentiment,response_message=Sentiment, name='insert', path='add', http_method='POST')
     def addSentiment(self,request):
+        return request
+    
+    @endpoints.method(request_message=Sentiment,response_message=Sentiment, name='insert', path='add', http_method='POST')
+    def startSentiment(self, request):
+        classifier = NaiveClassifierBagOfWords()
+        tweetAggregator = Aggregator("qkszpkt1i2x1kY9Ac73w", "tTNJAdzmD4tDBCbENM710TWK1UkoczHEnn8hZyO4Lwc",
+                                  "996319352-9pP5LTKNyrdmLiviq47CmzasffUfZF4t0efd48", "puJC3Pv9n9QeZltBpMLYWlfD7aRLwcGuU5b29jnWkRk")
+        tweetAggregator.setClassfier(classifier)
+        tweetAggregator.streamReader('Apple')
         return request
 
 @endpoints.api(name='symbols', version='v1', description='Stock Symbols API')
@@ -64,6 +75,7 @@ class GetSymbolsAPI(remote.Service):
         return StockSymbolCountMessage(message=message)
 
     
-application = endpoints.api_server([GetSymbolsAPI])
+application = endpoints.api_server([SentimentAPI, GetSymbolsAPI])
+
 
 

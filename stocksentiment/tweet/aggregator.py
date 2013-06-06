@@ -7,6 +7,7 @@ from tweepy import API, Cursor, OAuthHandler, Stream
 from tweepy.streaming import StreamListener
 from utils import common
 from persistence import structure
+from classifier.NaiveClassifierBagOfWords import NaiveClassifierBagOfWords
 class Aggregator(object):
     def __init__(self, consumer_key, consumer_secret, access_key, access_secret):
         auth = OAuthHandler(consumer_key, consumer_secret)
@@ -43,9 +44,10 @@ class Aggregator(object):
                 continue 
             
     def streamReader(self, keywordList):
-        feedReader = FeedListener()  
+        feedReader = FeedListener()
+        feedReader.setClassfier(self.classifier)  
         stream = Stream(self.auth, feedReader)    
-        stream.filter(follow=None, track=[keywordList])
+        stream.filter(follow=None, track=[keywordList])       
           
           
 class FeedListener(StreamListener):
@@ -57,9 +59,24 @@ class FeedListener(StreamListener):
          
     def on_status(self, status):
         try: 
-            tweet = status.text
-            print tweet
-            print '\n %s  %s  via %s\n' % (status.author.screen_name, status.created_at, status.source) 
+            keyword=''
+            userID = status.author.id
+            userName = status.author.screen_name
+            time = status.created_at
+            text = status.text
+            source = status.source
+            print '\n %s %s  %s  via %s\n %s\n' % (userID, userName, time, source, text)
+            feat = common.make_full_dict(common.getFeatureVector(text))
+            status= self.classifier.classify(text)
+            print status
+            if(status=='pos'):
+                sentimentInfo=structure.SentimentInfo(ticker=keyword,time=time,posCount=1,negCount=0)
+                sentimentInfo.put()
+            else:
+                sentimentInfo=structure.SentimentInfo(ticker=keyword,time=time,posCount=0,negCount=1)
+                sentimentInfo.put()
+            tweetInfo=structure.TweetInfo(ticker=keyword,time=time,userID=str(userID),userName=userName,text=text)
+            tweetInfo.put()
         except Exception, e:
             print e 
             pass 
@@ -68,7 +85,13 @@ class FeedListener(StreamListener):
         
 
 if __name__ == '__main__':
+    a=1
     tweetAggregator = Aggregator("qkszpkt1i2x1kY9Ac73w", "tTNJAdzmD4tDBCbENM710TWK1UkoczHEnn8hZyO4Lwc",
                                   "996319352-9pP5LTKNyrdmLiviq47CmzasffUfZF4t0efd48", "puJC3Pv9n9QeZltBpMLYWlfD7aRLwcGuU5b29jnWkRk")
-    tweetAggregator.searchKeyword('$APPL')
+    tweetAggregator.start(a)
+    c = NaiveClassifierBagOfWords()
+    #c.parse()
+    #c.train()
+    #tweetAggregator.setClassfier(c)
+    #tweetAggregator.searchKeyword('$APPL')
     tweetAggregator.streamReader('Apple')

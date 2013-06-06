@@ -18,6 +18,8 @@ class NaiveClassifierBagOfWords:
         self.negativeFeatures = []
         self.classifier = ClassifierI()
         self.local = True
+        self.parse()
+        self.train()
     
     def word_features(self, words):
         if(isinstance(words, str)):

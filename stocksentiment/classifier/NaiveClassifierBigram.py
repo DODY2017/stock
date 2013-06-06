@@ -154,6 +154,9 @@ class NaiveClassifierBigram:
     def word_feats(self, words):    
         return dict([(word, True) for word in words])
     
+    def classify(self, text):
+        return (self.classifier.classify(WhitespaceTokenizer().tokenize(text)))
+    
 if __name__ == "__main__":
     corpussize = [70000]
     c = NaiveClassifierBigram()
@@ -165,7 +168,7 @@ if __name__ == "__main__":
     #    c.corpuslength = size
     #    c.evaluateclassifier(c.word_feats)
         
-    for size in corpussize:
-        c.corpuslength = size
-        c.evaluateclassifier(c.best_bigram_word_feats)
+    #for size in corpussize:
+    #    c.corpuslength = size
+    #    c.evaluateclassifier(c.best_bigram_word_feats)
     
