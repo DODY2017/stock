@@ -7,6 +7,7 @@ from google.appengine.ext import ndb
 import datetime
 
 class SentimentInfo(ndb.Model):
+    category = ndb.StringProperty()
     ticker = ndb.StringProperty()
     time = ndb.DateTimeProperty()
     posCount = ndb.IntegerProperty()

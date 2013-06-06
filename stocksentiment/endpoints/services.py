@@ -6,13 +6,13 @@ Created on May 23, 2013
 from google.appengine.ext import endpoints
 from protorpc import messages
 from protorpc import remote
-from persistence.structure import StockSymbol
+from persistence.structure import StockSymbol, SentimentInfo
 from persistence.StockSymbols import StockSymbols
 from google.appengine.ext import ndb
 from classifier.NaiveClassifierBagOfWords import NaiveClassifierBagOfWords
 from tweet.aggregator import Aggregator
 
-class Sentiment(messages.Message):
+class KeywordTracker(messages.Message):
     category = messages.StringField(1)
     keyword= messages.StringField(2)
     
@@ -29,11 +29,13 @@ class StockSymbolCountMessage(messages.Message):
         
 @endpoints.api(name='sentiment', version='v1', description='Sentiment API')
 class SentimentAPI(remote.Service):
-    @endpoints.method(request_message=Sentiment,response_message=Sentiment, name='insert', path='add', http_method='POST')
-    def addSentiment(self,request):
+    @endpoints.method(request_message=KeywordTracker,response_message=KeywordTracker, name='addKeyword', path='add', http_method='POST')
+    def addKeyword(self,request):
+        sentimentInfo = SentimentInfo(category=request.category, ticker=request.keyword)        
+        sentimentInfo.put()
         return request
     
-    @endpoints.method(request_message=Sentiment,response_message=Sentiment, name='insert', path='add', http_method='POST')
+    @endpoints.method(name='startSentiment', path='start', http_method='POST')
     def startSentiment(self, request):
         classifier = NaiveClassifierBagOfWords()
         tweetAggregator = Aggregator("qkszpkt1i2x1kY9Ac73w", "tTNJAdzmD4tDBCbENM710TWK1UkoczHEnn8hZyO4Lwc",
